@@ -12,7 +12,7 @@ public class FirstFight {
         m1.put("attack",200);
         m1.put("speed",400);
         m1.put("blood",1000);
-        m1.put("goalRate",70);
+        m1.put("goalRate",30);
         m1.put("comboRate",50);
         m1.put("comboWave",30);
         Map<String,Integer> m2=new HashMap<>();
@@ -22,8 +22,8 @@ public class FirstFight {
         m2.put("goalRate",70);
         m2.put("comboRate",50);
         m2.put("comboWave",30);
-        PersonVO p1=new PersonVO(1,"零老师",m1);
-        PersonVO p2=new PersonVO(1,"熊宝",m2);
+        PersonVO p1=new PersonVO(1L,"零老师",m1);
+        PersonVO p2=new PersonVO(1L,"熊宝",m2);
         new Fight(p1,p2).execute();
     }
 }

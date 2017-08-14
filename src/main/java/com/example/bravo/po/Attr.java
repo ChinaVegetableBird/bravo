@@ -13,6 +13,9 @@ public class Attr {
     String name;
     Integer value;
 
+    public Attr() {
+    }
+
     public Long getUid() {
         return uid;
     }

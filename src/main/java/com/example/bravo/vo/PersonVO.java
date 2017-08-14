@@ -3,15 +3,15 @@ package com.example.bravo.vo;
 import java.util.Map;
 
 public class PersonVO {
-    Integer id;
+    Long id;
     String name;
     Map<String,Integer> attrs;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class PersonVO {
         this.attrs = attrs;
     }
 
-    public PersonVO(Integer id, String name, Map<String, Integer> attrs) {
+    public PersonVO(Long id, String name, Map<String, Integer> attrs) {
         this.id = id;
         this.name = name;
         this.attrs = attrs;

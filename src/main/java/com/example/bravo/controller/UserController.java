@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
+    @Resource
+    HttpServletRequest request;
 
     @Autowired
     UserRepository userRepository;
@@ -42,5 +46,21 @@ public class UserController {
         }
         attrRepository.save(attrList);
         return new VO(user);
+    }
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "password",dataType = "string",paramType = "query")
+    })
+    @RequestMapping(value="/login",method= RequestMethod.POST)
+    public VO<Integer> login(@RequestParam(value = "username") String username,
+                             @RequestParam(value = "password") String password){
+        User user=userRepository.findByNameAndPassword(username,password);
+        if(user!=null){
+            request.getSession().setAttribute("username",username);
+            request.getSession().setAttribute("password",password);
+            return new VO<Integer>(1);
+        }else{
+            return new VO<Integer>(null);
+        }
     }
 }
