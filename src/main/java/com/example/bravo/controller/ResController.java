@@ -34,8 +34,6 @@ public class ResController {
     @Value("${file.location}")
     String location="";
 
-    @Resource
-    HttpServletRequest request;
     @Autowired
     ResRepository resRepository;
 
@@ -56,22 +54,26 @@ public class ResController {
         return new VO(kinds);
     }
 
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "type",dataType = "string",paramType = "query"),
-//            @ApiImplicitParam(name = "file",dataType = "file",paramType = "body")
-//    })
-//    @RequestMapping(value="/upload",method= RequestMethod.POST)
-//    public VO<String> addPic(@RequestParam(value = "type") String type){
-//        MultipartFile file=request.getFile("file");
-//        Date date=new Date();
-//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyMMdd");
-//        String fold=simpleDateFormat.format(date);
-//        try {
-//            file.transferTo(new File(location+fold+"//"+file.getName()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return new VO<String>(null);
-//        }
-//        return new VO<String>("1");
-//    }
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type",dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "file",dataType = "file",paramType = "body")
+    })
+    @RequestMapping(value="/upload",method= RequestMethod.POST)
+    public VO<String> addPic(@RequestParam(value = "type") String type,
+                             @RequestParam(value = "file") MultipartFile file){
+        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyMMdd");
+        String fold=simpleDateFormat.format(date);
+        try {
+            File dicFile=new File(location+fold);
+            dicFile.mkdirs();
+            File realFile=new File(location+fold+"//"+file.getOriginalFilename());
+            realFile.createNewFile();
+            file.transferTo(realFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new VO<String>(null);
+        }
+        return new VO<String>("1");
+    }
 }
