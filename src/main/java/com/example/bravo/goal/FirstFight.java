@@ -1,9 +1,11 @@
 package com.example.bravo.goal;
 
 import com.example.bravo.action.Fight;
+import com.example.bravo.vo.FightDetailVO;
 import com.example.bravo.vo.PersonVO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FirstFight {
@@ -24,6 +26,9 @@ public class FirstFight {
         m2.put("comboWave",30);
         PersonVO p1=new PersonVO(1L,"零老师",m1);
         PersonVO p2=new PersonVO(1L,"熊宝",m2);
-        new Fight(p1,p2).execute();
+        List<FightDetailVO> fightDetailVOList=new Fight(p1,p2).execute();
+        for(FightDetailVO fightDetailVO:fightDetailVOList){
+            System.out.println(fightDetailVO.getDetail());
+        }
     }
 }
