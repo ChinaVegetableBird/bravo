@@ -58,7 +58,7 @@ public class UserController {
         if(user!=null){
             request.getSession().setAttribute("username",username);
             request.getSession().setAttribute("password",password);
-            return new VO<Integer>(12);
+            return new VO<Integer>(1233);
         }else{
             return new VO<Integer>(null);
         }
